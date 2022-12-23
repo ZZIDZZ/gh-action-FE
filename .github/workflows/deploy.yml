@@ -1,0 +1,26 @@
+name: Laravel
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Sync
+        env:
+          dest: "ubuntu@13.238.117.131:/home/ubuntu/devops.zzidzz.tech/public/"
+        run: |
+          echo "${{secrets.DEPLOY_KEY}}" > ~/deploy_key
+          chmod 600 ~/deploy_key
+          rsync -chav --delete \
+            -e 'ssh -i ~/deploy_key -o StrictHostKeyChecking=no' \
+            --exclude ~/deploy_key \
+            --exclude .git/ \
+            --exclude .github/ \
+            ./ ${{env.dest}}
