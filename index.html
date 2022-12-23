@@ -13,6 +13,7 @@
     <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css" rel="stylesheet">
+    <link href="assets/swal-forms.css" rel="stylesheet">
     <link href="index.css" rel="stylesheet">
   </head>
   <body>
@@ -27,24 +28,11 @@
       <div class="d-flex bd-highlight mb-3">
         <div class="me-auto p-2 bd-highlight"><h2>Users</div>
       </div>
-      <div class="container">
-        <form action="javascript:createSubmit()">
-            <label for="create_fname" class="control-label">Username:</label>
-            <input id="create_fname" name="create_fname" class="form-control" autofocus="autofocus" placeholder="Username"/>
-            <label for="create_lname" class="control-label">First Name:</label>
-            <input id="create_lname" name="create_lname" class="form-control" autofocus="autofocus" placeholder="First Name"/>
-            <label for="create_username" class="control-label">Last Name:</label>
-            <input id="create_username" name="create_username" class="form-control" autofocus="autofocus" placeholder="Last Name"/>
-            <label for="create_avatar" class="control-label">Avatar Url</label>
-            <input id="create_avatar" name="create_avatar" class="form-control" autofocus="autofocus" placeholder="Avatar"/>
-            <button class="btn btn-primary" type="submit">Create User</button>
-        </form>
-    <div>
       <div class="container container-table">
-        <!-- <div class="p-2 bd-highlight">
+        <div class="p-2 bd-highlight">
           <a href="#create_modal" type="button" data-id="1" data-target="#create_modal" class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#create_modal" data-bs-dismiss="modal" >Create</a>
-          <a href="create" type="button" class="btn btn-lg btn-primary">Create</a>
-        </div> -->
+          <!-- <a href="create" type="button" class="btn btn-lg btn-primary">Create</a> -->
+        </div>
         <div class="table-responsive">
             <table id="user-table" class="table table-hover display table-striped cell-border">
             <thead>
@@ -56,7 +44,7 @@
       </div>
     </div>
     <!-- create modal -->
-    <!-- <div class="modal fade" id="create_modal" tabindex="-1" role="dialog" aria-labelledby="create_modalLabel" aria-hidden="true">
+    <div class="modal fade" id="create_modal" tabindex="-1" role="dialog" aria-labelledby="create_modalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -73,7 +61,7 @@
               <label for="create_avatar" class="control-label">Avatar Url:</label>
               <input id="create_avatar" class="form-control" autofocus="autofocus" placeholder="Avatar"/>
             </div>
-         </div> -->
+         </div>
     
          <div class="modal-footer">
            <button id="save" type="save" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
@@ -141,8 +129,6 @@
     <script>
         var userTable = $('#user-table').DataTable({
           "paging": true,
-          // "pageLength": 50,
-          "lengthChange" : false,
           "ajax": { "url": "https://63a19776ba35b96522e25641.mockapi.io/users", "dataSrc": ""},
           "rowId": "id",
           "processing": true,
@@ -360,16 +346,15 @@
               deleteUser(user_id);
             });
         });
-        
-        let createSubmit = () => {
-            user = {
-                "fname":    document.getElementsByName("create_fname")[0].value,
-                "lname":    document.getElementsByName("create_lname")[0].value,
-                "username": document.getElementsByName("create_username")[0].value,
-                "avatar":   document.getElementsByName("create_avatar")[0].value,
-            }
-            createUser(user);
-        };
+
+        $('#update_modal').on('hidden.bs.modal', function (e) {
+          console.log("deleted");
+        })
+
+        $('#delete_modal').on('hidden.bs.modal', function (e) {
+          console.log("deleted");
+
+        })
     </script>
   </body>
 </html>
