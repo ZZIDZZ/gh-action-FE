@@ -1,14 +1,375 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-</head>
-<body>
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>ZZIDZZ CRUD</title>
+
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+  </head>
+  <body>
+
+    <nav class="navbar navbar-dark bg-mynav">
+      <div class="container-xl">
+        <a class="navbar-brand" href="#">zzidzz.tech</a>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="d-flex bd-highlight mb-3">
+        <div class="me-auto p-2 bd-highlight"><h2>Users</div>
+      </div>
+      <div class="container">
+        <form action="javascript:createSubmit()">
+            <label for="create_fname" class="control-label">Username:</label>
+            <input id="create_fname" name="create_fname" class="form-control" autofocus="autofocus" placeholder="Username"/>
+            <label for="create_lname" class="control-label">First Name:</label>
+            <input id="create_lname" name="create_lname" class="form-control" autofocus="autofocus" placeholder="First Name"/>
+            <label for="create_username" class="control-label">Last Name:</label>
+            <input id="create_username" name="create_username" class="form-control" autofocus="autofocus" placeholder="Last Name"/>
+            <label for="create_avatar" class="control-label">Avatar Url</label>
+            <input id="create_avatar" name="create_avatar" class="form-control" autofocus="autofocus" placeholder="Avatar"/>
+            <button class="btn btn-primary" type="submit">Create User</button>
+        </form>
     <div>
-        <h1>Halo Ges, test html mantap</h1>
+      <div class="container container-table">
+        <!-- <div class="p-2 bd-highlight">
+          <a href="#create_modal" type="button" data-id="1" data-target="#create_modal" class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#create_modal" data-bs-dismiss="modal" >Create</a>
+          <a href="create" type="button" class="btn btn-lg btn-primary">Create</a>
+        </div> -->
+        <div class="table-responsive">
+            <table id="user-table" class="table table-hover display table-striped cell-border">
+            <thead>
+            </thead>
+            <tbody id="mytable">
+            </tbody>
+            </table>
+        </div>
+      </div>
     </div>
-</body>
+    <!-- create modal -->
+    <!-- <div class="modal fade" id="create_modal" tabindex="-1" role="dialog" aria-labelledby="create_modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Create User</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="create_fname" class="control-label">Username:</label>
+              <input id="create_fname" class="form-control" autofocus="autofocus" placeholder="Username"/>
+              <label for="create_lname" class="control-label">First Name:</label>
+              <input id="create_lname" class="form-control" autofocus="autofocus" placeholder="First Name"/>
+              <label for="create_username" class="control-label">Last Name:</label>
+              <input id="create_username" class="form-control" autofocus="autofocus" placeholder="Last Name"/>
+              <label for="create_avatar" class="control-label">Avatar Url:</label>
+              <input id="create_avatar" class="form-control" autofocus="autofocus" placeholder="Avatar"/>
+            </div>
+         </div> -->
+    
+         <div class="modal-footer">
+           <button id="save" type="save" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+           <button type="button" class="btn btn-danger close-modal" data-bs-dismiss="modal">Close</button>
+         </div>
+       </div>
+     </div>
+    </div>
+
+    <!-- update modal -->
+    <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="update_modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Update User</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="update_fname" class="control-label">Username:</label>
+              <input id="update_fname" class="form-control" autofocus="autofocus" placeholder="Username"/>
+              <label for="update_lname" class="control-label">First Name:</label>
+              <input id="update_lname" class="form-control" autofocus="autofocus" placeholder="First Name"/>
+              <label for="update_username" class="control-label">Last Name:</label>
+              <input id="update_username" class="form-control" autofocus="autofocus" placeholder="Last Name"/>
+              <label for="update_avatar" class="control-label">Avatar Url:</label>
+              <input id="update_avatar" class="form-control" autofocus="autofocus" placeholder="Avatar"/>
+            </div>
+         </div>
+    
+         <div class="modal-footer">
+           <button id="save" type="save" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+           <button type="button" class="btn btn-danger close-modal" data-bs-dismiss="modal">Close</button>
+         </div>
+       </div>
+     </div>
+    </div>
+    <div id="overlay"></div>
+
+    <!-- update modal -->
+    <div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="delete_modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Konfirmasi Hapus User</h4>
+          </div>
+    
+         <div class="modal-footer">
+           <button id= "confirm" type="button" class="btn btn-danger close-modal" data-bs-dismiss="modal">Hapus</button>
+         </div>
+       </div>
+     </div>
+    </div>
+    <div id="overlay"></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
+    <script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="assets/swal-forms.js"></script>
+    <!-- <script src="index.js"></script> -->
+    <script>
+        var userTable = $('#user-table').DataTable({
+          "paging": true,
+          // "pageLength": 50,
+          "lengthChange" : false,
+          "ajax": { "url": "https://63a19776ba35b96522e25641.mockapi.io/users", "dataSrc": ""},
+          "rowId": "id",
+          "processing": true,
+          // "serverSide": true,
+          'language': {
+              // 'paginate': {
+              //   'previous': '<span class="prev-icon"></span>',
+              //   'next': '<span class="next-icon"></span>'
+              // },
+              'loadingRecords': '&nbsp;',
+              'processing': '<div class="spinner"></div>'
+          },
+          "responsive": true,
+
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "columns": [
+          { 
+              "title": "#",
+              "data": "id" 
+          },{ 
+              "title": "avatar",
+              "data": "avatar",
+              "render": function(data, type){
+                  return '<td><img width="50px" src="' + data +'" class="avatar"></td>';
+              }
+          },{ 
+              "title": "First Name",
+              "data": "fname" 
+          },{ 
+              "title": "Last Name",
+              "data": "lname" 
+          },{ 
+              "title": "Username",
+              "data": "username" 
+          },{
+              data: "id",
+              className: "dt-center",
+              defaultContent: '<i class="fa fa-pencil"/>',
+              orderable: false,
+              "render": function(data, type){
+                  return `<a href="#update_modal" class='btn btn-sm btn-info updateUser' id="update-${data}" data-bs-toggle="modal" data-id="update-${data}" data-bs-target="#update_modal" data-target="#update_modal" data-bs-dismiss="modal" >Update</a> 
+                  <a href="#delete_modal" class='btn btn-sm btn-danger deleteUser' id="delete-${data}"  data-id="delete-${data}" data-bs-toggle="modal" data-bs-target="#delete_modal" data-bs-dismiss="modal" >Delete</a>`;
+              }
+          },
+          ],
+        });
+
+        function createUser(user){
+          var resp
+          resp = fetch('https://63a19776ba35b96522e25641.mockapi.io/users/', {
+              method: 'POST',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(user)
+          })
+          .then(response => {
+            console.log(response.status);
+            if (response.status == 201){
+              swal({
+                      title: "Success", 
+                      text: "succesfully created user", 
+                      icon: "success"
+                    },
+              ).then(function(){
+                location.reload();
+              });
+            } else{
+              swal({
+                      title: "Failed", 
+                      text: "failed creating user", 
+                      icon: "failed"
+                    },
+              ).then(function(){
+                location.reload();
+              });
+            }
+          })
+          userTable.ajax.reload();
+        }
+
+        function updateUser(user, id){
+          var resp
+          resp = fetch(`https://63a19776ba35b96522e25641.mockapi.io/users/${id}`, {
+              method: 'PUT',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(user)
+          })
+          .then(response => {
+            console.log(response.status);
+            if (response.status == 200){
+              swal({
+                      title: "Success", 
+                      text: "succesfully updated user", 
+                      icon: "success"
+                    },
+              ).then(function(){
+                location.reload();
+              });
+            } else{
+              swal({
+                      title: "Failed", 
+                      text: "failed updating user", 
+                      icon: "failed"
+                    },
+              ).then(function(){
+                location.reload();
+              });
+            }
+          })
+          userTable.ajax.reload();
+        }
+
+        function deleteUser(id){
+          var resp
+          resp = fetch(`https://63a19776ba35b96522e25641.mockapi.io/users/${id}`, {
+              method: 'DELETE',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              },
+          })
+          .then(response => {
+            console.log(response.status);
+            if (response.status == 200){
+              swal({
+                      title: "Success", 
+                      text: "succesfully deleted user", 
+                      icon: "success"
+                    },
+              ).then(function(){
+                location.reload();
+              });
+            } else{
+              swal({
+                      title: "Failed", 
+                      text: "failed deleting user", 
+                      icon: "failed"
+                    },
+              ).then(function(){
+                location.reload();
+              });
+            }
+          })
+          userTable.ajax.reload();
+        }
+
+        $('#create_modal').on('show.bs.modal', function(e) {
+          var id = $(e.relatedTarget).data('id');
+          var fname = $(this).find('input[id="create_fname"]');
+          var lname = $(this).find('input[id="create_lname"]');
+          var username = $(this).find('input[id="create_username"]');
+          var avatar = $(this).find('input[id="create_avatar"]');
+          
+          $(this).find('button[id="save"]').click(function() {
+              user = {
+                "fname": fname.val(),
+                "lname": lname.val(),
+                "username": username.val(),
+                "avatar": avatar.val(),
+              }
+              createUser(user);
+            });
+        });
+
+        var curRow;
+
+        $('#update_modal').on('show.bs.modal', function(e) {
+          var id = $(e.relatedTarget).data('id');
+          id = id.split("-")[1];
+          curRow = document.getElementById("user-table").rows[((parseInt(id) - 1) % 10) + 1];
+          console.log("curRow");
+          console.log(curRow);
+          userValue = {
+            "id": curRow.cells[0].innerHTML,
+            "avatar": curRow.cells[1].innerHTML,
+            "fname": curRow.cells[2].innerHTML,
+            "lname": curRow.cells[3].innerHTML,
+            "username": curRow.cells[4].innerHTML,
+          }
+          console.log("nice")
+          console.log(userValue);
+          console.log($(this).attr('id'));
+          console.log(id);
+          var fname = $(this).find('input[id="update_fname"]').val(userValue["fname"]);
+          var lname = $(this).find('input[id="update_lname"]').val(userValue["lname"]);
+          var username = $(this).find('input[id="update_username"]').val(userValue["username"]);
+          var avatar = $(this).find('input[id="update_avatar"]').val(userValue["avatar"].match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1].replace(/['"]+/g, ''));
+          var user_id = userValue["id"];
+          $(this).find('button[id="save"]').click(function() {
+              user = {
+                "fname": fname.val(),
+                "lname": lname.val(),
+                "username": username.val(),
+                "avatar": avatar.val(),
+              }
+              updateUser(user, user_id);
+            });
+        });
+
+        $('#delete_modal').on('show.bs.modal', function(e) {
+          var id = $(e.relatedTarget).data('id');
+          id = id.split("-")[1];
+          var curRow = document.getElementById("user-table").rows[((parseInt(id) - 1) % 10) + 1]
+          var user_id = curRow.cells[0].innerHTML
+          $(this).find('button[id="confirm"]').click(function() {
+              deleteUser(user_id);
+            });
+        });
+        
+        let createSubmit = () => {
+            user = {
+                "fname":    document.getElementsByName("create_fname")[0].value,
+                "lname":    document.getElementsByName("create_lname")[0].value,
+                "username": document.getElementsByName("create_username")[0].value,
+                "avatar":   document.getElementsByName("create_avatar")[0].value,
+            }
+            createUser(user);
+        };
+    </script>
+  </body>
 </html>
