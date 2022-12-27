@@ -13,7 +13,6 @@
     <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/datetime/1.2.0/css/dataTables.dateTime.min.css" rel="stylesheet">
-    <link href="assets/swal-forms.css" rel="stylesheet">
     <link href="index.css" rel="stylesheet">
   </head>
   <body>
@@ -222,7 +221,6 @@
     <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
     <script src="https://cdn.datatables.net/datetime/1.2.0/js/dataTables.dateTime.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="assets/swal-forms.js"></script>
     <!-- <script src="index.js"></script> -->
     <script>
         var userTable = $('#user-table').DataTable({
@@ -405,20 +403,21 @@
         $('#update_modal').on('show.bs.modal', function(e) {
           var id = $(e.relatedTarget).data('id');
           id = id.split("-")[1];
-          curRow = document.getElementById("user-table").rows[((parseInt(id) - 1) % 10) + 1];
-          console.log("curRow");
-          console.log(curRow);
+          // curRow = document.getElementById("user-table").rows[((parseInt(id) - 1) % 10) + 1];
+          // console.log("curRow");
+          // console.log(curRow);
           userValue = {
-            "id": curRow.cells[0].innerHTML,
-            "avatar": curRow.cells[1].innerHTML,
-            "fname": curRow.cells[2].innerHTML,
-            "lname": curRow.cells[3].innerHTML,
-            "username": curRow.cells[4].innerHTML,
+            "id": $(`#${id}`).find("td:eq(0)").text(),
+            "avatar": $(`#${id}`).find("td:eq(1)").html(),
+            "fname": $(`#${id}`).find("td:eq(2)").text(),
+            "lname": $(`#${id}`).find("td:eq(3)").text(),
+            "username": $(`#${id}`).find("td:eq(4)").text(),
           }
-          console.log("nice")
-          console.log(userValue);
-          console.log($(this).attr('id'));
-          console.log(id);
+          // console.log("nice")
+          // console.log(userValue);
+          // console.log($(this).attr('id'));
+          // console.log(id);
+          console.log($(`#${id}`).find("td:eq(0)").text());
           var fname = $(this).find('input[id="update_fname"]').val(userValue["fname"]);
           var lname = $(this).find('input[id="update_lname"]').val(userValue["lname"]);
           var username = $(this).find('input[id="update_username"]').val(userValue["username"]);
@@ -438,21 +437,12 @@
         $('#delete_modal').on('show.bs.modal', function(e) {
           var id = $(e.relatedTarget).data('id');
           id = id.split("-")[1];
-          var curRow = document.getElementById("user-table").rows[((parseInt(id) - 1) % 10) + 1]
-          var user_id = curRow.cells[0].innerHTML
+          var user_id = parseInt($(`#${id}`).find("td:eq(0)").text());
+          console.log(user_id);
           $(this).find('button[id="confirm"]').click(function() {
               deleteUser(user_id);
             });
         });
-
-        $('#update_modal').on('hidden.bs.modal', function (e) {
-          console.log("deleted");
-        })
-
-        $('#delete_modal').on('hidden.bs.modal', function (e) {
-          console.log("deleted");
-
-        })
     </script>
   </body>
 </html>
