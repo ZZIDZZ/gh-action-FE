@@ -225,7 +225,7 @@
     <script>
         var userTable = $('#user-table').DataTable({
           "paging": true,
-          "ajax": { "url": "https://63a19776ba35b96522e25641.mockapi.io/users", "dataSrc": ""},
+          "ajax": { "url": "https://laravel.zzidzz.tech/api/customer", "dataSrc": ""},
           "rowId": "id",
           "processing": true,
           // "serverSide": true,
@@ -278,7 +278,7 @@
 
         function createUser(user){
           var resp
-          resp = fetch('https://63a19776ba35b96522e25641.mockapi.io/users/', {
+          resp = fetch('https://laravel.zzidzz.tech/api/customer/', {
               method: 'POST',
               headers: {
                   'Accept': 'application/json',
@@ -313,7 +313,7 @@
 
         function updateUser(user, id){
           var resp
-          resp = fetch(`https://63a19776ba35b96522e25641.mockapi.io/users/${id}`, {
+          resp = fetch(`https://laravel.zzidzz.tech/api/customer/${id}`, {
               method: 'PUT',
               headers: {
                   'Accept': 'application/json',
@@ -348,7 +348,7 @@
 
         function deleteUser(id){
           var resp
-          resp = fetch(`https://63a19776ba35b96522e25641.mockapi.io/users/${id}`, {
+          resp = fetch(`https://laravel.zzidzz.tech/api/customer/${id}`, {
               method: 'DELETE',
               headers: {
                   'Accept': 'application/json',
