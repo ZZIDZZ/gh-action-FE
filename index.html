@@ -313,7 +313,7 @@
 
         function updateUser(user, id){
           var resp
-          resp = fetch(`https://laravel.zzidzz.tech/api/customer/${id}`, {
+          resp = fetch(`https://laravel.zzidzz.tech/api/customer/update/${id}`, {
               method: 'PUT',
               headers: {
                   'Accept': 'application/json',
@@ -348,7 +348,7 @@
 
         function deleteUser(id){
           var resp
-          resp = fetch(`https://laravel.zzidzz.tech/api/customer/${id}`, {
+          resp = fetch(`https://laravel.zzidzz.tech/api/customer/delete/${id}`, {
               method: 'DELETE',
               headers: {
                   'Accept': 'application/json',
